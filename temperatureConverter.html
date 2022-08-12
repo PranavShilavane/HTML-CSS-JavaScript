@@ -1,0 +1,179 @@
+<!-- 
+
+A simple temperature converter that accept temperature in any unit and convert to any other unit ( celcius, fahrenheit, kelvin ).
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature Converter</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        position: relative;
+        height: 350px;
+        width: 330px;
+        background-image: linear-gradient(
+          90deg,
+          rgb(0, 136, 255) 50%,
+          rgb(255, 255, 0) 50%
+        );
+        text-align: center;
+        border-radius: 7px;
+        border: 3px solid rgba(255, 255, 255, 0.9);
+      }
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: red;
+        box-shadow: 0px 0px 20px cyan, 0px 0px 15px cyan, 0px 0px 20px cyan;
+        border-radius: 10px;
+        z-index: -1;
+        animation: color-change 3s linear infinite;
+      }
+      @keyframes color-change {
+        from {
+          filter: hue-rotate(0deg);
+        }
+        to {
+          filter: hue-rotate(360deg);
+        }
+      }
+      h2 {
+        padding: 25px 0 15px;
+      }
+      .result {
+        font-size: 23px;
+      }
+      select {
+        padding: 2px;
+        color: black;
+      }
+      #first {
+        background-color: rgb(13, 255, 0);
+      }
+      #second {
+        background-color: cyan;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Temperature Converter</h2>
+      <br />
+      From &nbsp;
+      <select name="" id="first">
+        <option value="C">Celcius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+      </select>
+      &nbsp;&nbsp;&nbsp;&nbsp; To&nbsp;&nbsp;
+      <select name="" id="second">
+        <option value="C">Celcius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+      </select>
+      <br />
+      <br />
+      <br />
+      <label for="temperature">Enter the temperature : </label>
+      <input type="number" name="" id="temperature" />
+      <br />
+      <br />
+      <br />
+      <input
+        type="button"
+        value="CONVERT"
+        onclick="convert()"
+        style="padding: 4px 5px; font-weight: 900"
+      />
+      <br />
+      <br />
+      <div class="result">Converted Temperature</div>
+    </div>
+    <script type="text/javascript">
+      function convert() {
+        var Temperature = document.getElementById("temperature").value;
+        var from = document.getElementById("first").value;
+        var to = document.getElementById("second").value;
+        var result = document.getElementsByClassName("result")[0];
+
+        if (from == "C" && to == "C")
+          resultString = `Celcius = ${Temperature} ℃`;
+        else if (from == "C" && to == "F")
+          resultString =
+            "Fahrenheit = " + FromCelciusToFahrenheit(Temperature) + " ℉";
+        else if (from == "C" && to == "K")
+          resultString = "Kelvin = " + FromCelciusToKelvin(Temperature) + " K";
+        else if (from == "F" && to == "F")
+          resultString = `Fahrenheit = ${Temperature} ℉`;
+        else if (from == "F" && to == "C")
+          resultString =
+            "Celcius = " + FromFahrenheitToCelcius(Temperature) + " ℃";
+        else if (from == "F" && to == "K")
+          resultString =
+            "Kelvin = " + FromFahrenheitToKelvin(Temperature) + " K";
+        else if (from == "K" && to == "K")
+          resultString = `Kelvin = ${Temperature} K`;
+        else if (from == "K" && to == "C")
+          resultString = "Celcius = " + FromKelvinToCelcius(Temperature) + " ℃";
+        else if (from == "K" && to == "F")
+          resultString =
+            "Fahrenheit = " + FromKelvinToFahrenheit(Temperature) + " ℉";
+
+        result.innerText = resultString;
+      }
+      //   Celcius section
+      function FromCelciusToKelvin(Temperature) {
+        var Kelvin = parseFloat(273.15) + parseInt(Temperature);
+        return Kelvin;
+      }
+      function FromCelciusToFahrenheit(Temperature) {
+        var Fahrenheit = (9 * parseInt(Temperature)) / 5 + 32;
+        return Fahrenheit;
+      }
+      //   Fahrenheit section
+      function FromFahrenheitToKelvin(Temperature) {
+        var Kelvin =
+          parseFloat(273.15) + ((parseInt(Temperature) - 32) * 5) / 9;
+        return Kelvin;
+      }
+      function FromFahrenheitToCelcius(Temperature) {
+        var Celcius = ((parseInt(Temperature) - 32) * 5) / 9;
+        return Celcius;
+      }
+      //   Kelvin section
+      function FromKelvinToCelcius(Temperature) {
+        var Celcius = parseInt(Temperature) - parseFloat(273.15);
+        return Celcius;
+      }
+      function FromKelvinToFahrenheit(Temperature) {
+        var Fahrenheit =
+          (9 * (parseFloat(Temperature) - parseFloat(273.15))) / 5 + 32;
+        return Fahrenheit;
+      }
+    </script>
+  </body>
+</html>
+
+<!-- _________________________ SC [ C : Star ] _________________________ -->
