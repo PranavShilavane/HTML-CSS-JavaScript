@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url(../a.jpg) center no-repeat;
+        background-size: cover;
+      }
+      .main {
+        border-radius: 7px;
+        padding: 30px 30px;
+        background-color: rgba(0, 0, 0, 0.6);
+        height: 370px;
+        width: 350px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      input {
+        border-radius: 3px;
+        width: 100%;
+        margin: 15px 0;
+        padding: 13px 10px;
+        font-size: 15px;
+        outline: none;
+        border: 1px solid grey;
+      }
+
+      input[type="button"] {
+        width: 30%;
+        padding: 10px 0;
+        font-size: 20px;
+        float: right;
+        transition: all 0.3s linear;
+      }
+
+      input::placeholder {
+        padding-left: 10px;
+        font-size: 16px;
+      }
+
+      .left {
+        margin: 20px 0px;
+      }
+      .right {
+        margin: 20px 200px;
+      }
+      .center {
+        margin: 20px 100px;
+      }
+
+      .safe {
+        background-color: rgb(0, 179, 255);
+        color: white;
+      }
+      .unSafe {
+        background-color: rgb(255, 0, 119);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <form>
+        <input type="text" name="" placeholder="Name" />
+        <input type="email" name="" placeholder="Email" />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          onkeypress="check()"
+          onkeyup="check()"
+        />
+        
+        <input
+          type="button"
+          id="but"
+          onmouseover="check()"
+          onclick="greet()"
+          class="center"
+          value="Submit"
+        />
+      </form>
+    </div>
+    <script>
+      let greet = () => {
+        let name = document.querySelector("input");
+        alert("Welcome, " + name.value);
+      };
+
+      function check() {
+        let box = document.querySelector("#password");
+        let button = document.getElementById("but");
+
+        if (box.value == "s") {
+          button.classList.add("safe","center");
+          button.classList.remove("unSafe");
+        } else {
+          if (button.classList.contains("center")) {
+            button.classList.add("left");
+            button.classList.remove("center", "right");
+          } else if (button.classList.contains("left")) {
+            button.classList.add("right");
+            button.classList.remove("left", "center");
+          } else if (button.classList.contains("right")) {
+            button.classList.add("center");
+            button.classList.remove("left", "right");
+          }
+
+          button.classList.remove("safe");
+          button.classList.add("unSafe");
+        }
+      }
+    </script>
+  </body>
+</html>
